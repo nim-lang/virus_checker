@@ -18,7 +18,7 @@ jobs:
       - name: fetch x64 archive from nightlies
         shell: powershell
         run: |
-            Invoke-WebRequest https://github.com/nim-lang/nightlies/releases/download/latest-devel/windows_x64.zip -OutFile             "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -DisableRemediation -File "%CD%\nim.zip"
+            Invoke-WebRequest https://github.com/nim-lang/nightlies/releases/download/latest-devel/windows_x64.zip -OutFile "%CD%\nim.zip"
 
       - name: scan x64 archive from nightlies
         shell: cmd
