@@ -1,1 +1,26 @@
+name: Test Nim with Windows Defender
+on:
+  push:
+  schedule:
+    - cron: '0 01 * * *'
+jobs:
+  run:
+    runs-on: windows-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: start Windows Defender service
+        shell: powershell
+        run: 'Set-Service -Name wuauserv -StartupType Manual -Status Running'
+      - name: update signatures
+        shell: cmd
+        run: '"C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate'
+      - name: fetch x64 archive from nightlies
+        shell: powershell
+        run: |
+            Invoke-WebRequest https://github.com/nim-lang/nightlies/releases/download/latest-devel/windows_x64.zip -OutFile nim.zip
+      - name: scan x64 archive from nightlies
+        shell: cmd
+        run: |
+            "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -DisableRemediation -File "%CD%\nim.zip"
 
