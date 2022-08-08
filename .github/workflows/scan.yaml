@@ -22,5 +22,5 @@ jobs:
       - name: scan x64 archive from nightlies
         shell: cmd
         run: |
-            "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -DisableRemediation -File "%CD%\nim.zip"
+            "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -DisableRemediation -File nim.zip
 
