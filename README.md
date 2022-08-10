@@ -3,7 +3,7 @@
 It intends to implement https://github.com/nim-lang/Nim/issues/17820#issuecomment-1208353122
 
 
-## Tasks
+## Finished tasks
 
 - [x] Scan nightlies release using windows defender
 - [x] Upload nightlies release to virusTotal
