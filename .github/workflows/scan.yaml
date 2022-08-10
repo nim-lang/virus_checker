@@ -30,5 +30,6 @@ jobs:
         with:
           vt_monitor: true
           vt_api_key: ${{ secrets.VT_API_KEY }}
+          monitor_path: .
           files: |
             nim.zip
