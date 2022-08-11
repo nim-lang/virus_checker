@@ -2,7 +2,9 @@ name: Test Nim with Windows Defender
 on:
   push:
   schedule:
-    - cron: '0 01 * * *'
+    - cron: '0 00 * * *'
+    - cron: '50 8 * * *'
+    - cron: '54 16 * * *'
 jobs:
   run:
     runs-on: windows-latest
