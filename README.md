@@ -12,3 +12,6 @@ It intends to implement https://github.com/nim-lang/Nim/issues/17820#issuecommen
 
 - [ ] Scan important packages and upload the binaries to virusTotal
 - [ ] Scan open source malwares written in Nim and upload the binaries to virusTotal
+
+
+**Please help us with reporting false postives to anti-virus vendors**, here is [the list](https://github.com/yaronelh/False-Positive-Center) where to report.
