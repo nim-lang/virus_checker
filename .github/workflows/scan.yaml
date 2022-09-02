@@ -1,5 +1,6 @@
 name: Test Nim with Windows Defender
 on:
+  pull_request:
   push:
   schedule:
     - cron: '0 00 * * *'
