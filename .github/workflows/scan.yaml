@@ -3,9 +3,7 @@ on:
   pull_request:
   push:
   schedule:
-    - cron: '0 00 * * *'
     - cron: '50 8 * * *'
-    - cron: '54 16 * * *'
 jobs:
   run:
     runs-on: windows-latest
