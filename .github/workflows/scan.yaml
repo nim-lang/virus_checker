@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: start Windows Defender service
         shell: powershell
         run: 'Set-Service -Name wuauserv -StartupType Manual -Status Running'
