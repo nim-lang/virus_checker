@@ -7,11 +7,11 @@ It intends to implement https://github.com/nim-lang/Nim/issues/17820#issuecommen
 
 - [x] Scan nightlies release using windows defender
 - [x] Upload nightlies release to virusTotal
+- [x] Scan open source malwares written in Nim and upload the binaries to virusTotal
 
 ## Potiential goals
 
-- [ ] Scan important packages and upload the binaries to virusTotal
-- [ ] Scan open source malwares written in Nim and upload the binaries to virusTotal
+- [ ] Scan examples and important packages and upload the binaries to virusTotal
 
 
 ## Report false postives
