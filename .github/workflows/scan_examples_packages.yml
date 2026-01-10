@@ -1,0 +1,72 @@
+name: Scan Nim Examples and Packages with Windows Defender
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: '50 8 * * *'
+jobs:
+  run:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+      
+      - uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: 'stable'
+      
+      # Build simple examples
+      - name: Build simple examples
+        shell: cmd
+        run: |
+          mkdir binaries
+          nim c -d:release --out:binaries\hello_world.exe examples\hello_world.nim
+          nim c -d:release --out:binaries\file_operations.exe examples\file_operations.nim
+          nim c -d:release --out:binaries\json_example.exe examples\json_example.nim
+          nim c -d:release --out:binaries\math_operations.exe examples\math_operations.nim
+          nim c -d:release --out:binaries\async_example.exe examples\async_example.nim
+      
+      # Install dependencies for package examples
+      - name: Install package dependencies
+        shell: cmd
+        run: |
+          nimble install -y jester parsetoml regex zippy yaml
+      
+      # Build package examples
+      - name: Build package examples
+        shell: cmd
+        run: |
+          nim c -d:release --out:binaries\jester_example.exe packages_examples\jester_example.nim
+          nim c -d:release --out:binaries\parsetoml_example.exe packages_examples\parsetoml_example.nim
+          nim c -d:release --out:binaries\regex_example.exe packages_examples\regex_example.nim
+          nim c -d:release --out:binaries\zippy_example.exe packages_examples\zippy_example.nim
+          nim c -d:release --out:binaries\yaml_example.exe packages_examples\yaml_example.nim
+      
+      # Compress all binaries
+      - name: Compress binaries
+        shell: powershell
+        run: Compress-Archive binaries\*.exe examples_packages.zip
+      
+      # Windows Defender scan
+      - name: start Windows Defender service
+        shell: powershell
+        run: 'Set-Service -Name wuauserv -StartupType Manual -Status Running'
+      
+      - name: update signatures
+        shell: cmd
+        run: '"C:\Program Files\Windows Defender\MpCmdRun.exe" -SignatureUpdate'
+      
+      - name: scan examples and packages built with Nim stable
+        shell: cmd
+        run: |
+          "C:\Program Files\Windows Defender\MpCmdRun.exe" -Scan -ScanType 3 -DisableRemediation -File "%CD%\examples_packages.zip"
+      
+      # Upload to VirusTotal
+      - name: VirusTotal Scan
+        uses: crazy-max/ghaction-virustotal@v4
+        with:
+          vt_api_key: ${{ secrets.VT_API_KEY }}
+          files: |
+            examples_packages.zip

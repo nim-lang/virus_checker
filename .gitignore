@@ -1,0 +1,16 @@
+# Nim build artifacts
+nimcache/
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+
+# Binary output directory
+binaries/
+
+# Compressed archives
+*.zip
+
+# Temporary files
+temp_example.txt
