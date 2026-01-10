@@ -7,6 +7,8 @@ on:
 jobs:
   run:
     runs-on: windows-latest
+    permissions:
+      contents: read
     steps:
       - name: checkout
         uses: actions/checkout@v6
